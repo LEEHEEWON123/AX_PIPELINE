@@ -1,0 +1,105 @@
+# AX 파이프라인 — 대상 프로젝트 레지스트리
+#
+# 프로젝트 하나 = 제품 하나. FE/BE 리포가 갈려 있어도 한 항목으로 묶는다.
+# 여기에 항목을 추가하면 /ax-sync <key> 부터 /ax-pr <key> 까지 그대로 쓸 수 있다.
+# 등록된 프로젝트가 없으면 /ax-sync 가 이 파일을 안내한다.
+
+# ─────────────────────────────────────────────────────────────
+# 스키마
+# ─────────────────────────────────────────────────────────────
+#
+# <key>:                  /ax-sync <key> 에 쓰는 짧은 이름
+#   name:                 사람이 읽는 이름
+#   milestone:            이슈 필터. null 이면 열린 이슈 전부
+#
+#   repos:                최소 하나. 단일 리포면 be 만 둔다
+#     be:
+#       slug:             owner/repo
+#       base:             기본 브랜치
+#       workspace:        클론 위치 (git 제외 대상)
+#     fe:                 FE/BE가 갈린 경우만
+#       slug / base / workspace
+#
+#   branch_pattern:       브랜치 이름 규칙
+#                         치환: {kind} {number} {slug} {item}
+#   spec_dir:             제품 리포 안의 spec 경로
+#
+#   issue:                이슈 본문에서 무엇을 읽을지
+#     item_pattern:       개발항목 번호 추출 정규식. null 이면 번호 추적 없음
+#     depends_field:      선행 필드명
+#     done_field:         완료 판정 필드명
+#     pair_rule:          FE/BE 짝 규칙 — none | fe_suffix_F
+#
+#   app:                  6-C 화면 검증용. FE가 없으면 생략
+#     start / url / login
+#
+#   verify:               6-A 기계 검증 커맨드. null 이면 자동 탐지
+#     build / test / lint
+
+# ─────────────────────────────────────────────────────────────
+# 두 가지는 반드시 실물을 확인하고 적는다
+# ─────────────────────────────────────────────────────────────
+#
+# base            main 이라고 가정하지 말 것. master 인 리포가 흔하다.
+#                 gh repo view <slug> --json defaultBranchRef
+#
+# branch_pattern  리포에 이미 브랜치 관례가 있으면 그것을 따른다.
+#                 파이프라인이 새 규칙을 들고 들어가면 기존 작업과 갈라진다.
+#                 git branch -r 로 먼저 본다.
+
+# ─────────────────────────────────────────────────────────────
+# 기본값 — 프로젝트에서 생략한 항목에 적용된다
+# ─────────────────────────────────────────────────────────────
+defaults:
+  base: main
+  spec_dir: specs
+  branch_pattern: "feat/{kind}/{number}-{slug}"
+  issue:
+    item_pattern: null
+    depends_field: 선행
+    done_field: 완료 판정
+    pair_rule: none
+  app:
+    start: null
+    url: null
+    login: null
+  verify:
+    build: null
+    test: null
+    lint: null
+
+# ─────────────────────────────────────────────────────────────
+# 프로젝트 — 여기에 추가한다
+# ─────────────────────────────────────────────────────────────
+projects: {}
+
+# 예시. 복사해서 projects 아래에 붙이고 값을 바꾼다.
+#
+# projects:
+#   myproduct:
+#     name: 제품 이름
+#     milestone: 마일스톤 이름
+#     repos:
+#       be:
+#         slug: org/product_backend
+#         base: master
+#         workspace: workspace/product_backend
+#       fe:
+#         slug: org/product_frontend
+#         base: master
+#         workspace: workspace/product_frontend
+#     branch_pattern: "growth/{kind}-{number}-{slug}"
+#     spec_dir: specs
+#     issue:
+#       item_pattern: '^\[(공통|선택)-(\d+)(F?)\]'
+#       depends_field: 선행
+#       done_field: 완료 판정
+#       pair_rule: fe_suffix_F
+#     app:
+#       start: npm run dev
+#       url: http://localhost:3000
+#       login: null
+#     verify:
+#       build: npm run build
+#       test: npm test
+#       lint: npm run lint

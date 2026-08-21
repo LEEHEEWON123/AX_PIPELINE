@@ -1,0 +1,219 @@
+<title>{{모듈명}} 사용 안내</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#EEF1F6; --surface:#FFF; --surface-2:#F6F8FB;
+  --line:#D9DFE9; --line-soft:#E8ECF3;
+  --ink:#1B1F26; --ink-2:#414B5A; --ink-mute:#6B7787;
+  --accent:#0064FF; --accent-soft:#E4EEFF;
+  --rise:#00A200; --caution:#F18900; --danger:#FF4E41;
+  --rise-bg:#E4F5E4; --caution-bg:#FDF0DC; --danger-bg:#FFE9E7;
+  --shadow:0 1px 2px rgba(27,31,38,.06),0 8px 24px rgba(27,31,38,.07);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#101319; --surface:#171B23; --surface-2:#1D222C;
+  --line:#2B323F; --line-soft:#232935;
+  --ink:#E8ECF3; --ink-2:#BDC6D4; --ink-mute:#8B96A6;
+  --accent:#5B9BFF; --accent-soft:#1A2740;
+  --rise:#4CC24C; --caution:#FFAE42; --danger:#FF7A70;
+  --rise-bg:#16301A; --caution-bg:#3A2B12; --danger-bg:#3A1E1C;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}}
+:root[data-theme="dark"]{
+  --ground:#101319; --surface:#171B23; --surface-2:#1D222C;
+  --line:#2B323F; --line-soft:#232935;
+  --ink:#E8ECF3; --ink-2:#BDC6D4; --ink-mute:#8B96A6;
+  --accent:#5B9BFF; --accent-soft:#1A2740;
+  --rise:#4CC24C; --caution:#FFAE42; --danger:#FF7A70;
+  --rise-bg:#16301A; --caution-bg:#3A2B12; --danger-bg:#3A1E1C;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",system-ui,sans-serif;
+  font-size:15px;line-height:1.72}
+h1,h2,h3{font-family:"Gothic A1","Malgun Gothic",system-ui,sans-serif;text-wrap:balance;margin:0}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.wrap{display:grid;grid-template-columns:236px minmax(0,1fr);max-width:1320px;margin:0 auto;align-items:start}
+.rail{position:sticky;top:0;height:100vh;overflow-y:auto;padding:34px 20px 40px;
+  border-right:1px solid var(--line);background:var(--surface)}
+.rail .mark{font-family:"Gothic A1",sans-serif;font-weight:800;font-size:13px;
+  letter-spacing:.14em;color:var(--accent);margin-bottom:4px}
+.rail .mark-sub{font-size:11.5px;color:var(--ink-mute);margin-bottom:24px;line-height:1.5}
+.rail nav{display:flex;flex-direction:column;gap:2px}
+.rail nav a{padding:6px 9px;border-radius:5px;color:var(--ink-2);text-decoration:none;font-size:13px}
+.rail nav a:hover{background:var(--surface-2);color:var(--ink)}
+.rail nav .grp{margin-top:16px;padding:0 9px 4px;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-mute);font-family:"IBM Plex Mono",monospace}
+main{padding:34px 44px 120px;min-width:0}
+header.top{padding-bottom:26px;border-bottom:2px solid var(--ink);margin-bottom:34px}
+header.top .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.16em;
+  color:var(--accent);text-transform:uppercase;margin-bottom:12px}
+header.top h1{font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.28}
+header.top p.lede{margin:14px 0 0;font-size:15.5px;color:var(--ink-2);max-width:62ch}
+header.top dl.meta{display:flex;flex-wrap:wrap;gap:8px 26px;margin:20px 0 0;font-size:12.5px;color:var(--ink-mute)}
+header.top dl.meta div{display:flex;gap:7px}
+header.top dl.meta dt{font-family:"IBM Plex Mono",monospace}
+header.top dl.meta dd{margin:0;color:var(--ink-2)}
+section{margin:0 0 60px;scroll-margin-top:22px}
+section>h2{font-size:22px;font-weight:800;padding-bottom:9px;border-bottom:1px solid var(--line);
+  margin-bottom:20px;display:flex;align-items:baseline;gap:11px}
+section>h2 .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
+  color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:4px;white-space:nowrap}
+h3{font-size:16px;font-weight:700;margin:30px 0 12px}
+p{margin:0 0 13px;max-width:70ch}
+ul,ol{margin:0 0 14px;padding-left:20px;max-width:70ch}
+strong{font-weight:600}
+a{color:var(--accent)}
+figure.shot{margin:0 0 8px;background:var(--surface);border:1px solid var(--line);
+  border-radius:8px;overflow:hidden;box-shadow:var(--shadow)}
+.shot .frame{position:relative;line-height:0}
+.shot img{display:block;width:100%;height:auto}
+.pin{position:absolute;transform:translate(-50%,-50%);width:23px;height:23px;border-radius:50%;
+  background:var(--accent);color:#fff;font-family:"IBM Plex Mono",monospace;font-size:12px;
+  display:flex;align-items:center;justify-content:center;line-height:1;
+  box-shadow:0 0 0 2.5px #fff,0 1px 5px rgba(0,0,0,.4);z-index:2}
+figcaption{padding:10px 14px;font-size:12.5px;color:var(--ink-mute);
+  background:var(--surface-2);border-top:1px solid var(--line-soft)}
+ol.legend{list-style:none;padding:0;margin:0 0 26px;max-width:none;counter-reset:lg}
+ol.legend li{counter-increment:lg;position:relative;padding:9px 0 9px 38px;margin:0;
+  border-bottom:1px solid var(--line-soft);font-size:14px;line-height:1.65}
+ol.legend li:last-child{border-bottom:none}
+ol.legend li::before{content:counter(lg);position:absolute;left:0;top:11px;
+  width:23px;height:23px;border-radius:50%;background:var(--accent);color:#fff;
+  font-family:"IBM Plex Mono",monospace;font-size:12px;
+  display:flex;align-items:center;justify-content:center;line-height:1}
+ol.legend b{font-weight:600}
+ol.legend .note,td .note{display:block;color:var(--ink-mute);font-size:13px}
+.tw{overflow-x:auto;margin:0 0 22px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{background:var(--surface-2);font-family:"Gothic A1",sans-serif;font-weight:700;
+  font-size:12.5px;color:var(--ink-2);white-space:nowrap;border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+td.mono{font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+.chip{display:inline-flex;align-items:center;padding:1px 9px;border-radius:11px;
+  font-size:12px;font-weight:600;border:1px solid;white-space:nowrap}
+.chip.rise{color:var(--rise);border-color:var(--rise);background:var(--rise-bg)}
+.chip.caution{color:var(--caution);border-color:var(--caution);background:var(--caution-bg)}
+.chip.danger{color:var(--danger);border-color:var(--danger);background:var(--danger-bg)}
+.note-box{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--surface);
+  border-radius:0 7px 7px 0;padding:14px 17px;margin:0 0 22px;box-shadow:var(--shadow)}
+.note-box.warn{border-left-color:var(--caution)}
+.note-box.stop{border-left-color:var(--danger)}
+.note-box h4{font-size:13.5px;font-weight:700;margin:0 0 6px}
+.note-box p:last-child,.note-box ul:last-child{margin-bottom:0}
+.note-box p,.note-box li{font-size:13.5px;line-height:1.65}
+ol.steps{list-style:none;padding:0;margin:0 0 22px;counter-reset:st;max-width:none}
+ol.steps li{counter-increment:st;position:relative;padding:0 0 18px 40px;margin:0 0 0 11px;
+  border-left:1px solid var(--line)}
+ol.steps li:last-child{border-left-color:transparent;padding-bottom:0}
+ol.steps li::before{content:counter(st);position:absolute;left:-11.5px;top:1px;
+  width:23px;height:23px;border-radius:50%;background:var(--surface);
+  border:1px solid var(--line);color:var(--ink-2);font-family:"IBM Plex Mono",monospace;font-size:12px;
+  display:flex;align-items:center;justify-content:center;line-height:1}
+ol.steps b{display:block;font-weight:600;margin-bottom:1px}
+ol.steps .note{color:var(--ink-mute);font-size:13.5px}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink-mute)}
+@media (max-width:960px){
+  .wrap{grid-template-columns:1fr}
+  .rail{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line);padding:22px 24px}
+  .rail nav{flex-direction:row;flex-wrap:wrap;gap:2px 4px}
+  .rail nav .grp{width:100%;margin-top:10px}
+  main{padding:26px 24px 80px}
+  header.top h1{font-size:27px}
+}
+@media print{.rail{display:none}.wrap{grid-template-columns:1fr;max-width:none}
+  main{padding:0}body{background:#fff}section{break-inside:avoid}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+<aside class="rail">
+  <div class="mark">{{모듈 약칭}}</div>
+  <div class="mark-sub">{{모듈명}}<br>사용 안내서</div>
+  <nav>
+    <a href="#intro">무엇이 생겼나</a>
+    <a href="#map">개발항목 ↔ 화면</a>
+    <span class="grp">화면</span>
+    <a href="#screen-1">{{화면명}}</a>
+    <span class="grp">숫자 읽는 법</span>
+    <a href="#num-1">{{지표명}}</a>
+    <span class="grp">운영</span>
+    <a href="#empty">비어 보이는 값</a>
+    <a href="#daily">평소에 할 일</a>
+    <a href="#pending">확인이 남은 항목</a>
+  </nav>
+</aside>
+
+<main>
+<header class="top">
+  <div class="eyebrow">{{제품}} · {{모듈}}</div>
+  <h1>{{모듈명}} 사용 안내</h1>
+  <p class="lede">{{무엇을 사람이 기억하지 않아도 되게 만들었는가. 기능 나열이 아니라 달라진 것.}}</p>
+  <dl class="meta">
+    <div><dt>대상</dt><dd>{{독자}}</dd></div>
+    <div><dt>화면</dt><dd>{{진입 경로}}</dd></div>
+    <div><dt>기준</dt><dd>Total PRD 개발항목 {{N}}건</dd></div>
+    <div><dt>캡처</dt><dd>{{실제 화면 여부}}</dd></div>
+  </dl>
+</header>
+
+<section id="intro">
+  <h2>무엇이 생겼나</h2>
+  <p>{{지금까지 무엇이 불편했는가 — 구체적으로}}</p>
+  <p>{{이번 작업으로 무엇이 달라지는가}}</p>
+  <div class="note-box">
+    <h4>{{새로 배워야 할 것은 거의 없습니다}}</h4>
+    <p>{{달라지는 동작만 짚는다}}</p>
+  </div>
+</section>
+
+<section id="map">
+  <h2>개발항목이 어디에 나타나는가</h2>
+  <div class="tw"><table>
+    <thead><tr><th>번호</th><th>개발항목</th><th>확인 위치</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">{{공통-1}}</td><td>{{항목명}}</td><td>{{화면 없음 — 어느 화면의 어느 값으로 나타나는가}}</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="screen-1">
+  <h2>{{화면명}} <span class="tag">{{선택-6}}</span></h2>
+  <p>{{진입 경로와 이 화면이 무엇을 보여주는가}}</p>
+  <figure class="shot">
+    <div class="frame">
+      <img src="shots/{{파일명}}.png" alt="{{화면 설명}}">
+      <span class="pin" style="left:00%;top:00%">1</span>
+    </div>
+    <figcaption>{{캡처 설명}}</figcaption>
+  </figure>
+  <ol class="legend">
+    <li><b>{{항목명}}</b> {{무엇인가}}<span class="note">{{어떻게 읽는가}}</span></li>
+  </ol>
+</section>
+
+<section id="empty">
+  <h2>비어 보이는 값</h2>
+  <p>{{왜 비는가, 언제 채워지는가. 현업이 가장 많이 묻는다.}}</p>
+</section>
+
+<section id="daily">
+  <h2>평소에 할 일</h2>
+  <ol class="steps">
+    <li><b>{{할 일}}</b><span class="note">{{언제, 왜}}</span></li>
+  </ol>
+</section>
+
+<section id="pending">
+  <h2>확인이 남은 항목</h2>
+  <p>{{아직 미정인 것. 숨기지 않는다.}}</p>
+</section>
+
+<footer>{{모듈명}} · Total PRD 개발항목 {{N}}건 기준</footer>
+</main>
+</div>
